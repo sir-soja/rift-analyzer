@@ -5,10 +5,10 @@ class Basics(commands.Cog, name="basics"):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name="ping", description="Get the current latency of the bot.")
+    @commands.command(name="ping", description="Get latency of the bot.")
     async def ping(self, ctx: commands.Context):
         """Get the current latency of the bot."""
-        await ctx.channel.send(f"The current latency of the bot is {round(self.bot.latency * 1000, 1)}ms.")
+        await ctx.channel.send(f"{round(self.bot.latency * 1000, 1)}ms.")
 
 
 async def setup(bot):

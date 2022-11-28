@@ -7,8 +7,9 @@ class DataAccess:
         self.cursor = self.connector.cursor()
 
     def create_tables(self):
+        query = 'CREATE TABLE players(LOL_ID TEXT, DISCORD_ID TEXT);'
         try:
-            self.cursor.execute('CREATE TABLE players(LOL_ID TEXT, DISCORD_ID TEXT);')
+            self.cursor.execute(query)
             self.connector.commit()
             return True
         except Exception as e:
