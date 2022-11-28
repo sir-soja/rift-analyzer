@@ -3,7 +3,7 @@ import sqlite3
 
 class DataAccess:
     def __init__(self):
-        self.connector = sqlite3.connect('rift-analyzer.db')
+        self.connector = sqlite3.connect('data/rift-analyzer.db')
         self.cursor = self.connector.cursor()
 
     def create_tables(self):

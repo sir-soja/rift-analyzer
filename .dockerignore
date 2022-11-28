@@ -2,6 +2,8 @@ venv
 .idea
 .env
 .git
+data
+logs
 *.db
 *.log
 *.md
