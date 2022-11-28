@@ -2,6 +2,7 @@ venv
 .idea
 .env
 .git
+.github
 data
 logs
 *.db
