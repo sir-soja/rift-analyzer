@@ -8,7 +8,7 @@ class DataAccess:
 
     def create_tables(self):
         try:
-            self.cursor.execute('CREATE TABLE players(LOL_ID TEXT, DISCORD_ID);')
+            self.cursor.execute('CREATE TABLE players(LOL_ID TEXT, DISCORD_ID TEXT);')
             self.connector.commit()
             return True
         except Exception as e:
@@ -29,3 +29,12 @@ class DataAccess:
         query = 'SELECT * FROM players'
         self.cursor.execute(query)
         return self.cursor.fetchall()
+
+    def get_player_by_discord_id(self, discord_id):
+        query = 'SELECT LOL_ID FROM players WHERE DISCORD_ID=?'
+        try:
+            self.cursor.execute(query, (discord_id,))
+            return self.cursor.fetchone()[0]
+        except Exception as e:
+            print(e)
+            return False
