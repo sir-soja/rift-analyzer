@@ -4,8 +4,8 @@ services:
     build:
       context: .
       args:
-        - DISCORD_TOKEN = ${DISCORD_TOKEN}
-        - RIOT_API_TOKEN = ${RIOT_API_TOKEN}
+        - DISCORD_TOKEN=${DISCORD_TOKEN}
+        - RIOT_API_TOKEN=${RIOT_API_TOKEN}
     volumes:
       - /data:/usr/src/app/data
       - /logs:/usr/src/app/logs
