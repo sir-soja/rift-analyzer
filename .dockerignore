@@ -3,8 +3,8 @@ venv
 .env
 .git
 .github
-data
 logs
+data
 *.db
 *.log
 *.md
