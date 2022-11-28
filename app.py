@@ -1,18 +1,27 @@
+import asyncio
 import os
-import logging
 import discord
-from bot import Client
 from data import DataAccess
+from discord.ext import commands
+
+intents = discord.Intents.default()
+intents.message_content = True
+bot = commands.Bot(command_prefix='?', intents=intents)
 
 
-if __name__ == '__main__':
-    handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
-
-    # Assume client refers to a discord.Client subclass...
+async def setup_database():
     if 'rift-analyzer.db' not in os.listdir(os.getcwd()):
         data = DataAccess()
         data.create_tables()
-    intents = discord.Intents.default()
-    intents.message_content = True
-    client = Client(intents=intents)
-    client.run(os.environ['DISCORD_TOKEN'], log_handler=handler, log_level=logging.DEBUG)
+
+
+async def load_cogs():
+    for filename in os.listdir("./cogs"):
+        if filename.endswith(".py"):
+            await bot.load_extension(f"cogs.{filename[:-3]}")
+
+
+if __name__ == '__main__':
+    asyncio.run(setup_database())
+    asyncio.run(load_cogs())
+    bot.run(os.environ['DISCORD_TOKEN'])
