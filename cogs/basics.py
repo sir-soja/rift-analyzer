@@ -1,22 +1,26 @@
 from discord.ext import commands
 from data import DataAccess
+from riotService import RiotService
 
 
 class Basics(commands.Cog, name="basics"):
     def __init__(self, bot):
         self.bot = bot
         self.data = DataAccess()
+        self.riot = RiotService()
 
     @commands.command(name='link', description='Link your account.')
     async def link(self, ctx: commands.Context, *text):
         """Link a LoL account to your Discord profile."""
         # need to add some checks on lol id before posting to database
         try:
-            self.data.new_player(' '.join(text), ctx.author.id)
-            await ctx.send('added to database')
+            user_id = self.riot.get_player_id_by_name(' '.join(text))
+            if user_id:
+                self.data.new_player(user_id, ctx.author.id)
+            await ctx.send(f'{ctx.author.mention} has been added to database.')
         except Exception as e:
             print(e)
-            await ctx.send('Error with the bot')
+            await ctx.send('Something went wrong...')
 
     @commands.command(name='list', description='List all members.')
     async def list(self, ctx: commands.Context):
