@@ -7,7 +7,8 @@ class DataAccess:
         self.cursor = self.connector.cursor()
 
     def create_tables(self):
-        query = 'CREATE TABLE players(LOL_ID TEXT, DISCORD_ID TEXT);'
+        query = """CREATE TABLE players
+        (LOL_ID TEXT UNIQUE, DISCORD_ID TEXT UNIQUE);"""
         try:
             self.cursor.execute(query)
             self.connector.commit()
