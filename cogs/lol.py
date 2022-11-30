@@ -2,6 +2,7 @@ from discord.ext import commands
 from data import DataAccess
 from riotService import RiotService
 import discord
+import re
 
 
 class Lol(commands.Cog, name="lol"):
@@ -10,21 +11,19 @@ class Lol(commands.Cog, name="lol"):
         self.data = DataAccess()
         self.riot = RiotService()
 
-    @commands.command(name='info', description='Get info on profile.')
-    async def info(self, ctx: commands.Context):
+    @commands.command(name='ranks', description='Get current ranks.')
+    async def ranks(self, ctx: commands.Context, *text):
         """Get ranked information on a player."""
+        user_id = ctx.author.id if ' '.join(text) == 'me' else re.sub('[^A-Za-z0-9]+', '', ' '.join(text))
         try:
-            player_id = self.data.get_player_by_discord_id(ctx.author.id)
+            player_id = self.data.get_player_by_discord_id(user_id)
             if player_id:
-                data = self.riot.get_player_ranked_stats_by_id(player_id)
-                embed = discord.Embed(title=data[0]['summonerName'],
+                embed = discord.Embed(title=ctx.author.name,
                                       color=0xFF5733)
-                embed.add_field(name=data[0]['queueType'],
-                                value=f'{data[0]["tier"]} {data[0]["rank"]} *({data[0]["wins"]}W - {data[0]["losses"]}L)*',
-                                inline=False)
-                embed.add_field(name=data[1]['queueType'],
-                                value=f'{data[1]["tier"]} {data[1]["rank"]} *({data[1]["wins"]}W - {data[1]["losses"]}L)*',
-                                inline=False)
+                for r in self.riot.get_player_ranked_stats_by_id(player_id):
+                    embed.add_field(name=r['queueType'],
+                                    value=f'{r["tier"]} {r["rank"]} *({r["wins"]}W - {r["losses"]}L)*',
+                                    inline=False)
                 await ctx.send(embed=embed)
         except Exception as e:
             print(e)
