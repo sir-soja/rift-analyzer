@@ -3,10 +3,18 @@ import os
 import discord
 from data import DataAccess
 from discord.ext import commands
+from discord.ext.commands import Context
 
 intents = discord.Intents.default()
 intents.message_content = True
 bot = commands.Bot(command_prefix='?', intents=intents)
+
+
+@bot.event
+async def on_command_completion(ctx: Context) -> None:
+    """Prints every command that performs successfully"""
+    cmd = str(ctx.command.qualified_name.split(" ")[0])
+    print(f"{cmd} : {ctx.guild.name} <- {ctx.author}")
 
 
 async def setup_database():

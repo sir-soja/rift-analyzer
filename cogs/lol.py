@@ -14,7 +14,8 @@ class Lol(commands.Cog, name="lol"):
     @commands.command(name='ranks', description='Get current ranks.')
     async def ranks(self, ctx: commands.Context, *text):
         """Get ranked information on a player."""
-        user_id = ctx.author.id if ' '.join(text) == 'me' else re.sub('[^A-Za-z0-9]+', '', ' '.join(text))
+        user_id = ctx.author.id if ' '.join(text) == 'me' \
+            else re.sub('[^A-Za-z0-9]+', '', ' '.join(text))
         try:
             player_id = self.data.get_player_by_discord_id(user_id)
             if player_id:
