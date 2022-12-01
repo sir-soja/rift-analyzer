@@ -23,7 +23,8 @@ class Lol(commands.Cog, name="lol"):
                                       color=0xFF5733)
                 for r in self.riot.get_player_ranked_stats_by_id(player_id):
                     embed.add_field(name=r['queueType'],
-                                    value=f'{r["tier"]} {r["rank"]} *({r["wins"]}W - {r["losses"]}L)*',
+                                    value=f'{r["tier"]} {r["rank"]} '
+                                          f'*({r["wins"]}W - {r["losses"]}L)*',
                                     inline=False)
                 await ctx.send(embed=embed)
         except Exception as e:
