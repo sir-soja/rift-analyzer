@@ -7,4 +7,4 @@ services:
         - RIOT_API_TOKEN=${RIOT_API_TOKEN}
     volumes:
       - ./data:/usr/src/app/data
-      - ./logs:/usr/src/app/logscd
+      - ./logs:/usr/src/app/logs
