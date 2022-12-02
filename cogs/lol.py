@@ -12,12 +12,10 @@ class Lol(commands.Cog, name="lol"):
         self.riot = RiotService()
 
     @commands.command(name='ranks', description='Get current ranks.')
-    async def ranks(self, ctx: commands.Context, *text):
+    async def ranks(self, ctx: commands.Context, user: discord.User):
         """Get ranked information on a player."""
-        user_id = ctx.author.id if ' '.join(text) == 'me' \
-            else re.sub('[^A-Za-z0-9]+', '', ' '.join(text))
         try:
-            player = self.data.get_player_by_discord_id(user_id)
+            player = self.data.get_player_by_discord_id(user.id)
             if player[0]:
                 embed = discord.Embed(title=player[1],
                                       color=0xFF5733)
@@ -32,12 +30,10 @@ class Lol(commands.Cog, name="lol"):
             await ctx.send('Something went wrong...')
 
     @commands.command(name='mastery', description='Get all mastered characters.')
-    async def mastery(self, ctx: commands.Context, mastery: int, *args):
+    async def mastery(self, ctx: commands.Context, mastery: int, user: discord.User):
         """Get masteries of a player."""
-        user_id = ctx.author.id if ' '.join(args) == 'me' \
-            else re.sub('[^A-Za-z0-9]+', '', ' '.join(args))
         try:
-            player = self.data.get_player_by_discord_id(user_id)
+            player = self.data.get_player_by_discord_id(user.id)
             if player[0]:
                 embed = discord.Embed(title=f"{player[1]}'s champions",
                                       color=0xFF5733)
