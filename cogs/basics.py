@@ -16,7 +16,7 @@ class Basics(commands.Cog, name="basics"):
         try:
             user_id = self.riot.get_player_id_by_name(' '.join(text))
             if user_id:
-                self.data.new_player(user_id, ctx.author.id)
+                self.data.new_player(user_id, ctx.author.id, ctx.author.name)
             await ctx.send(f'{ctx.author.mention} has been added to database.')
         except Exception as e:
             print(e)
@@ -27,8 +27,8 @@ class Basics(commands.Cog, name="basics"):
         """List all linked account in the server."""
         list_players = self.data.get_players()
         if list_players:
-            ui = "".join([f'<@{p[1]}> - {p[0]}\n' for p in list_players])
-            await ctx.send(ui)
+            ui = "".join([f'<@{p[1]}>\n' for p in list_players])
+            await ctx.send(f'__All registered players :__ \n{ui}')
         else:
             await ctx.send('Error with the bot...')
 
