@@ -2,7 +2,6 @@ from discord.ext import commands
 from data import DataAccess
 from riotService import RiotService
 import discord
-import re
 
 
 class Lol(commands.Cog, name="lol"):
@@ -29,7 +28,7 @@ class Lol(commands.Cog, name="lol"):
             print(e)
             await ctx.send('Something went wrong...')
 
-    @commands.command(name='mastery', description='Get all mastered characters.')
+    @commands.command(name='mastery', description='Get all mastered champs.')
     async def mastery(self, ctx: commands.Context, mastery: int, user: discord.User):
         """Get masteries of a player."""
         try:
