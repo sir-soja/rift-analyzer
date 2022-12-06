@@ -1,6 +1,6 @@
 champions = {
     "266": "Aatrox", "103": "Ahri", "84": "Akali", "166": "Akshan",
-    "12": "Alistar","32": "Amumu", "34": "Anivia", "1": "Annie",
+    "12": "Alistar", "32": "Amumu", "34": "Anivia", "1": "Annie",
     "523": "Aphelios", "22": "Ashe", "136": "Aurelion Sol", "268": "Azir",
     "432": "Bard", "200": "Bel'Veth", "53": "Blitzcrank", "63": "Brand",
     "201": "Braum", "51": "Caitlyn", "164": "Camille", "69": "Cassiopeia",
