@@ -29,16 +29,17 @@ class Lol(commands.Cog, name="lol"):
             await ctx.send('Something went wrong...')
 
     @commands.command(name='mastery', description='Get all mastered champs.')
-    async def mastery(self, ctx: commands.Context, mastery: int, user: discord.User):
+    async def mastery(self, ctx: commands.Context, mastery: int,
+                      user: discord.User):
         """Get masteries of a player."""
         try:
             player = self.data.get_player_by_discord_id(user.id)
             if player[0]:
                 embed = discord.Embed(title=f"{player[1]}'s champions",
                                       color=0xFF5733)
-                for c in self.riot.get_champions_by_player_id_and_mastery(player[0], mastery):
+                for c in self.riot.get_champions(player[0], mastery):
                     embed.add_field(name=c['champ'],
-                                    value=f'{c["championLevel"]} *({c["championPoints"]}pts)*')
+                                    value=f'{c["level"]} *({c["points"]}pts)*')
                 await ctx.send(embed=embed)
         except Exception as e:
             print(e)
