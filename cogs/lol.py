@@ -1,4 +1,4 @@
-from discord.ext import commands
+from discord.ext import commands, tasks
 from data import DataAccess
 from riotService import RiotService
 import discord
@@ -9,6 +9,14 @@ class Lol(commands.Cog, name="lol"):
         self.bot = bot
         self.data = DataAccess()
         self.riot = RiotService()
+
+    @commands.Cog.listener()
+    async def on_ready(self):
+        self.scoreboard.start()
+
+    @tasks.loop(seconds=1.0)
+    async def scoreboard(self):
+        print('i')
 
     @commands.command(name='ranks', description='Get current ranks.')
     async def ranks(self, ctx: commands.Context, user: discord.User):
