@@ -39,7 +39,6 @@ async def on_ready() -> None:
     print(f"discord.py API version: {discord.__version__}")
     print(f"Python version: {platform.python_version()}")
     print(f"Running on: {platform.system()} {platform.release()} ({os.name})")
-    print("-------------------")
     status_task.start()
 
 

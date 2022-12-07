@@ -22,15 +22,16 @@ class RiotService:
             print(e)
             return False
 
-    def get_champions_by_player_id_and_mastery(self, player_id, mastery):
+    def get_champions(self, player, mastery):
         try:
             my_champs = list()
-            for champ in self.lol_watcher.champion_mastery.by_summoner('euw1', player_id):
+            for champ in self.lol_watcher.champion_mastery.by_summoner('euw1',
+                                                                       player):
                 if champ['championLevel'] >= mastery:
                     my_champs.append(
                         {'champ': get_champion_by_id(champ['championId']),
-                         'championLevel': champ['championLevel'],
-                         'championPoints': champ['championPoints']})
+                         'level': champ['championLevel'],
+                         'points': champ['championPoints']})
             return my_champs
         except ApiError as e:
             print(e)
